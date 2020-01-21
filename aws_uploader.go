@@ -3,25 +3,11 @@ package aws_uploader
 import (
 	"bytes"
 	"fmt"
-	"net/http"
-	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 )
-
-const (
-	maxPartSize        = int64(5 * 1024 * 1024)
-	maxRetries         = 3
-	awsAccessKeyID     = "AKIAJ7KFULQFZUEMH5JA"
-	awsSecretAccessKey = "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"
-	awsBucketRegion    = "ap-southeast-1"
-	awsBucketName      = "turbo-bpo"
-)
-
 
 func completeMultipartUpload(svc *s3.S3, resp *s3.CreateMultipartUploadOutput, completedParts []*s3.CompletedPart) (*s3.CompleteMultipartUploadOutput, error) {
 	completeInput := &s3.CompleteMultipartUploadInput{
